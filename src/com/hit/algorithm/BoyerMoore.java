@@ -1,12 +1,35 @@
 package com.hit.algorithm;
 
-public abstract class BoyerMoore implements IAlgoMatchingStrings {
+public class BoyerMoore implements IAlgoMatchingStrings {
+    private static char[] text;
+    private static char[] pattern;
 
-    /* Driver program to test above function */
-    public static void main(String []args) {
+    public BoyerMoore (char[] txt, char[] pat) {
+        this.text = txt;
+        this.pattern = pat;
+    }
+    public char[] setTxt (char[] txt){
+        return this.text = txt;
+    }
+    public char[] setPat (char[] pat){
+        return this.pattern = pat;
+    }
 
-        char txt[] = "ABHFDSODFOJISDJF".toCharArray();
-        char pat[] = "FO".toCharArray();
+    public char[] getTxt(){
+        return this.text;
+    }
+    public char[] getPat(){
+        return this.pattern;
+    }
+
+
+    public static void main(String[] args) {
+
+        BoyerMoore game = new BoyerMoore("Grand Theft Auto: San Andreas".toCharArray(), "Grand Theft Auto".toCharArray());
+
+        char txt[] = game.getTxt();
+        char pat[] = game.getPat();
+
         Search(txt, pat);
     }
 
@@ -62,7 +85,7 @@ public abstract class BoyerMoore implements IAlgoMatchingStrings {
              the above loop */
             if (j < 0)
             {
-                System.out.println("Patterns occur at shift = " + s);
+                System.out.println("Found pattern at index = " + s);
 
               /* Shift the pattern so that the next
                  character in text aligns with the last
@@ -72,7 +95,6 @@ public abstract class BoyerMoore implements IAlgoMatchingStrings {
                  of text */
                 //txt[s+m] is character after the pattern in text
                 s += (s+m < n)? m-badchar[txt[s+m]] : 1;
-
             }
 
             else

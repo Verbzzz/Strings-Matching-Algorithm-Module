@@ -2,23 +2,42 @@ package com.hit.algorithm;
 
 import com.hit.algorithm.IAlgoMatchingStrings;
 
-public abstract class RobinKarp implements IAlgoMatchingStrings {
-    public static void main(String[] args)
-    {
-        String txt = "ABHFDSODFOJISDJF";
-        String pat = "FO";
+public class RobinKarp implements IAlgoMatchingStrings {
+    private static String text;
+    private static String pattern;
+
+    public RobinKarp (String txt, String pat) {
+        this.text = txt;
+        this.pattern = pat;
+    }
+    public String setTxt (String txt){
+        return this.text = txt;
+    }
+    public String setPat (String pat){
+        return this.pattern = pat;
+    }
+
+    public String getTxt(){
+        return this.text;
+    }
+    public String getPat(){
+        return this.pattern;
+    }
+
+
+    public static void main(String[] args) {
         int q = 101; // A prime number
+
+        RobinKarp game = new RobinKarp("Grand Theft Auto: San Andreas", "Grand Theft Auto");
+
+        String txt = game.getTxt();
+        String pat = game.getPat();
+
         Search(pat, txt, q);
     }
 
     // d is the number of characters in the input alphabet
     public final static int d = 256;
-
-    /* pat -> pattern
-        txt -> text
-        q -> A prime number
-    */
-
 
      static void Search(String pat, String txt, int q)
     {

@@ -1,18 +1,43 @@
 package com.hit.algorithm;
 
 import com.hit.algorithm.IAlgoMatchingStrings;
+import netscape.security.UserTarget;
 
-public abstract class KMP implements IAlgoMatchingStrings {
+public class KMP implements IAlgoMatchingStrings {
+    private static String text;
+    private static String pattern;
+
+    public KMP (String txt, String pat) {
+        this.text = txt;
+        this.pattern = pat;
+    }
+    public String setTxt (String txt){
+        return this.text = txt;
+    }
+    public String setPat (String pat){
+        return this.pattern = pat;
+    }
+
+    public String getTxt(){
+        return this.text;
+    }
+    public String getPat(){
+        return this.pattern;
+    }
+
+
     public static void main(String[] args) {
-        String txt = "ABHFDSODFOJISDJF";
-        String pat = "A";
+
+        KMP game = new KMP("Grand Theft Auto: San Andreas", "Grand Theft Auto");
+
+        String txt = game.getTxt();
+        String pat = game.getPat();
         Search(pat, txt);
     }
 
     public static void Search(String pat, String txt) {
         int M = pat.length();
         int N = txt.length();
-
         int lps[] = new int[M];
         int j = 0;
 
@@ -43,7 +68,7 @@ public abstract class KMP implements IAlgoMatchingStrings {
 
     }
 
-    public static void computeLPSArray(String pat, int M, int lps[])
+    public static void computeLPSArray (String pat,int M, int lps[])
     {
         // length of the previous longest prefix suffix
         int len = 0;
@@ -56,8 +81,7 @@ public abstract class KMP implements IAlgoMatchingStrings {
                 len++;
                 lps[i] = len;
                 i++;
-            }
-            else // (pat[i] != pat[len])
+            } else // (pat[i] != pat[len])
             {
                 // This is tricky. Consider the example.
                 // AAACAAAA and i = 7. The idea is similar
@@ -67,8 +91,7 @@ public abstract class KMP implements IAlgoMatchingStrings {
 
                     // Also, note that we do not increment
                     // i here
-                }
-                else // if (len == 0)
+                } else // if (len == 0)
                 {
                     lps[i] = len;
                     i++;
