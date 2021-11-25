@@ -1,18 +1,26 @@
 package com.hit.algorithm;
 
+import java.util.Locale;
+
 public class BoyerMoore implements IAlgoMatchingStrings {
     private static char[] text;
     private static char[] pattern;
 
-    public BoyerMoore (char[] txt, char[] pat) {
-        this.text = txt;
-        this.pattern = pat;
+    public BoyerMoore (String txt,String pat) {
+        txt.toLowerCase();
+        pat.toLowerCase();
+
+        this.text = txt.toCharArray();
+        this.pattern = pat.toCharArray();
     }
-    public char[] setTxt (char[] txt){
-        return this.text = txt;
+
+    public char[] setTxt (String txt){
+        txt.toLowerCase();
+        return this.text = txt.toCharArray();
     }
-    public char[] setPat (char[] pat){
-        return this.pattern = pat;
+    public char[] setPat (String pat){
+        pat.toLowerCase();
+        return this.pattern = pat.toCharArray();
     }
 
     public char[] getTxt(){
@@ -25,12 +33,13 @@ public class BoyerMoore implements IAlgoMatchingStrings {
 
     public static void main(String[] args) {
 
-        BoyerMoore game = new BoyerMoore("Grand Theft Auto: San Andreas".toCharArray(), "Grand Theft Auto".toCharArray());
+        BoyerMoore game = new BoyerMoore("Grand Theft Auto: San Andreas", "Grand Theft Auto");
 
         char txt[] = game.getTxt();
         char pat[] = game.getPat();
 
-        Search(txt, pat);
+        int result = Search(txt, pat);
+        System.out.println(result);
     }
 
     static int NO_OF_CHARS = 256;
@@ -55,37 +64,40 @@ public class BoyerMoore implements IAlgoMatchingStrings {
 
     /* A pattern searching function that uses Bad
     Character Heuristic of Boyer Moore Algorithm */
-    public static void Search( char txt[],  char pat[])
-    {
-        int m = pat.length;
-        int n = txt.length;
+    public static int Search( char txt[],  char pat[]) {
+        if (txt.length < pat.length) {
+            System.out.println("Pattern can't be longer then text");
+            return -1;
+        }
+        else {
 
-        int badchar[] = new int[NO_OF_CHARS];
+            int m = pat.length;
+            int n = txt.length;
+
+            int badchar[] = new int[NO_OF_CHARS];
 
       /* Fill the bad character array by calling
          the preprocessing function badCharHeuristic()
          for given pattern */
-        badCharHeuristic(pat, m, badchar);
+            badCharHeuristic(pat, m, badchar);
 
-        int s = 0;  // s is shift of the pattern with
-        // respect to text
-        //there are n-m+1 potential allignments
-        while(s <= (n - m))
-        {
-            int j = m-1;
+            int s = 0;  // s is shift of the pattern with
+            // respect to text
+            //there are n-m+1 potential allignments
+            while (s <= (n - m)) {
+                int j = m - 1;
 
           /* Keep reducing index j of pattern while
              characters of pattern and text are
              matching at this shift s */
-            while(j >= 0 && pat[j] == txt[s+j])
-                j--;
+                while (j >= 0 && pat[j] == txt[s + j])
+                    j--;
 
           /* If the pattern is present at current
              shift, then index j will become -1 after
              the above loop */
-            if (j < 0)
-            {
-                System.out.println("Found pattern at index = " + s);
+                if (j < 0) {
+                    //System.out.println("Found pattern at index = " + s);
 
               /* Shift the pattern so that the next
                  character in text aligns with the last
@@ -93,11 +105,10 @@ public class BoyerMoore implements IAlgoMatchingStrings {
                  The condition s+m < n is necessary for
                  the case when pattern occurs at the end
                  of text */
-                //txt[s+m] is character after the pattern in text
-                s += (s+m < n)? m-badchar[txt[s+m]] : 1;
-            }
-
-            else
+                    //txt[s+m] is character after the pattern in text
+                    s += (s + m < n) ? m - badchar[txt[s + m]] : 1;
+                    return 1;
+                } else
               /* Shift the pattern so that the bad character
                  in text aligns with the last occurrence of
                  it in pattern. The max function is used to
@@ -106,7 +117,9 @@ public class BoyerMoore implements IAlgoMatchingStrings {
                  occurrence  of bad character in pattern
                  is on the right side of the current
                  character. */
-                s += max(1, j - badchar[txt[s+j]]);
+                    s += max(1, j - badchar[txt[s + j]]);
+            }
         }
+        return 0;
     }
 }

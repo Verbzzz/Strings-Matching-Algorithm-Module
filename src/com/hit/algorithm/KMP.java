@@ -3,19 +3,23 @@ package com.hit.algorithm;
 import com.hit.algorithm.IAlgoMatchingStrings;
 import netscape.security.UserTarget;
 
+import java.util.Locale;
+
 public class KMP implements IAlgoMatchingStrings {
     private static String text;
     private static String pattern;
 
     public KMP (String txt, String pat) {
-        this.text = txt;
-        this.pattern = pat;
+        this.text = txt.toLowerCase();
+        this.pattern = pat.toLowerCase();
+
     }
+    public KMP(){}
     public String setTxt (String txt){
-        return this.text = txt;
+        return this.text = txt.toLowerCase();
     }
     public String setPat (String pat){
-        return this.pattern = pat;
+        return this.pattern = pat.toLowerCase();
     }
 
     public String getTxt(){
@@ -25,47 +29,52 @@ public class KMP implements IAlgoMatchingStrings {
         return this.pattern;
     }
 
-
     public static void main(String[] args) {
 
-        KMP game = new KMP("Grand Theft Auto: San Andreas", "Grand Theft Auto");
-
+        KMP game = new KMP("Grand Theft Auto:San Andreas", "Grand Theft Auto");
         String txt = game.getTxt();
         String pat = game.getPat();
-        Search(pat, txt);
+        int result = Search(pat, txt);
+        System.out.println(result);
     }
 
-    public static void Search(String pat, String txt) {
-        int M = pat.length();
-        int N = txt.length();
-        int lps[] = new int[M];
-        int j = 0;
+    public static int Search(String pat, String txt) {
+        if(txt.length() < pat.length()) {
+            System.out.println("Pattern can't be longer then text");
+            return -1;
+        }
+        else {
+            int M = pat.length();
+            int N = txt.length();
+            int lps[] = new int[M];
+            int j = 0;
 
-        computeLPSArray(pat, M, lps);
+            computeLPSArray(pat, M, lps);
 
-        int i = 0; // index for txt[]
-        while (i < N) {
-            if (pat.charAt(j) == txt.charAt(i)) {
-                j++;
-                i++;
-            }
-            if (j == M) {
-                System.out.println("Found pattern "
-                        + "at index " + (i - j));
-                j = lps[j - 1];
-            }
-
-            // mismatch after j matches
-            else if (i < N && pat.charAt(j) != txt.charAt(i)) {
-                // Do not match lps[0..lps[j-1]] characters,
-                // they will match anyway
-                if (j != 0)
+            int i = 0; // index for txt[]
+            while (i < N) {
+                if (pat.charAt(j) == txt.charAt(i)) {
+                    j++;
+                    i++;
+                }
+                if (j == M) {
+                   // System.out.println("Found pattern " + "at index " + (i - j));
                     j = lps[j - 1];
-                else
-                    i = i + 1;
+                    return 1;
+                }
+
+                // mismatch after j matches
+                else if (i < N && pat.charAt(j) != txt.charAt(i)) {
+                    // Do not match lps[0..lps[j-1]] characters,
+                    // they will match anyway
+                    if (j != 0)
+                        j = lps[j - 1];
+                    else
+                        i = i + 1;
+                }
             }
         }
-
+        return 0;
     }
 
     public static void computeLPSArray (String pat,int M, int lps[])
