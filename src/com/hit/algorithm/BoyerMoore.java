@@ -1,26 +1,28 @@
 package com.hit.algorithm;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 public class BoyerMoore implements IAlgoMatchingStrings {
     private static char[] text;
     private static char[] pattern;
 
+    public BoyerMoore(){}
     public BoyerMoore (String txt,String pat) {
-        txt.toLowerCase();
-        pat.toLowerCase();
+        String lowerTxt = txt.toLowerCase();
+        String lowerPat = pat.toLowerCase();
 
-        this.text = txt.toCharArray();
-        this.pattern = pat.toCharArray();
+        this.text = lowerTxt.toCharArray();
+        this.pattern = lowerPat.toCharArray();
     }
 
     public char[] setTxt (String txt){
-        txt.toLowerCase();
-        return this.text = txt.toCharArray();
+        String lowerTxt = txt.toLowerCase();
+        return this.text = lowerTxt.toCharArray();
     }
     public char[] setPat (String pat){
-        pat.toLowerCase();
-        return this.pattern = pat.toCharArray();
+        String lowerPat = pat.toLowerCase();
+        return this.pattern = lowerPat.toCharArray();
     }
 
     public char[] getTxt(){
@@ -34,6 +36,7 @@ public class BoyerMoore implements IAlgoMatchingStrings {
     public static void main(String[] args) {
 
         BoyerMoore game = new BoyerMoore("Grand Theft Auto: San Andreas", "Grand Theft Auto");
+
 
         char txt[] = game.getTxt();
         char pat[] = game.getPat();
@@ -65,8 +68,8 @@ public class BoyerMoore implements IAlgoMatchingStrings {
     /* A pattern searching function that uses Bad
     Character Heuristic of Boyer Moore Algorithm */
     public static int Search( char txt[],  char pat[]) {
-        if (txt.length < pat.length) {
-            System.out.println("Pattern can't be longer then text");
+        if (txt.length < pat.length || pat[0] == ' ')  {
+            System.out.println("Pattern is not valid");
             return -1;
         }
         else {

@@ -34,13 +34,13 @@ public class KMP implements IAlgoMatchingStrings {
         KMP game = new KMP("Grand Theft Auto:San Andreas", "Grand Theft Auto");
         String txt = game.getTxt();
         String pat = game.getPat();
-        int result = Search(pat, txt);
+        int result = Search(txt, pat);
         System.out.println(result);
     }
 
-    public static int Search(String pat, String txt) {
-        if(txt.length() < pat.length()) {
-            System.out.println("Pattern can't be longer then text");
+    public static int Search(String txt, String pat) {
+        if(txt.length() < pat.length() || pat == " ") {
+            System.out.println("Pattern is not valid");
             return -1;
         }
         else {

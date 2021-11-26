@@ -8,10 +8,13 @@ public class RobinKarp implements IAlgoMatchingStrings {
     private static String text;
     private static String pattern;
 
+    public RobinKarp() { }
+
     public RobinKarp (String txt, String pat) {
         this.text = txt.toLowerCase();
         this.pattern = pat.toLowerCase(Locale.ROOT);
     }
+
     public String setTxt (String txt){
         return this.text = txt.toLowerCase();
     }
@@ -34,18 +37,18 @@ public class RobinKarp implements IAlgoMatchingStrings {
         String txt = game.getTxt();
         String pat = game.getPat();
 
-        int result = Search(pat, txt, q);
+        int result = Search(txt, pat, q);
         System.out.println(result);
     }
 
     // d is the number of characters in the input alphabet
     public final static int d = 256;
 
-     static int Search(String pat, String txt, int q)
+     static int Search(String txt, String pat, int q)
     {
-        if(txt.length() < pat.length()) {
-            System.out.println("Pattern can't be longer then text");
-            return -1;
+        if(txt.length() < pat.length() || pat == " ") {
+        System.out.println("Pattern is not valid");
+        return -1;
         }
         else {
             int M = pat.length();

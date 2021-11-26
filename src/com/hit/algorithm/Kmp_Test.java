@@ -6,20 +6,38 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Kmp_Test {
     KMP kmp = new KMP();
+    int result;
 
     @Test
-    public void test (){
+    public void longerPat (){
         kmp.setPat("ABA");
         kmp.setTxt("a");
 
-        int result = kmp.Search(kmp.getPat(),kmp.getTxt());
+        result = kmp.Search(kmp.getTxt(),kmp.getPat());
         assertEquals(-1,result,0);
+    }
 
+    @Test
+    public void keySensitive(){
         kmp.setPat("ABA");
-        kmp.setTxt("fdshgds dahdas aba fhsdfhds");
-        result = kmp.Search(kmp.getPat(),kmp.getTxt());
+        kmp.setTxt("ababababa");
+        result = kmp.Search(kmp.getTxt(),kmp.getPat());
         assertEquals(1,result,0);
+    }
 
+    @Test
+    public void emptyPat(){
+        kmp.setPat(" ");
+        kmp.setTxt("abab ababa");
+        result = kmp.Search(kmp.getTxt(),kmp.getPat());
+        assertEquals(-1,result,0);
+    }
 
+    @Test
+    public void patNotFound(){
+        kmp.setPat("dfgdgdf");
+        kmp.setTxt("lpoiliolio");
+        result = kmp.Search(kmp.getTxt(),kmp.getPat());
+        assertEquals(0,result,0);
     }
 }
