@@ -1,6 +1,4 @@
-package com.hit.algorithm;
-
-import com.hit.algorithm.IAlgoMatchingStrings;
+package main.java.com.hit.algo;
 
 import java.util.Locale;
 
@@ -44,7 +42,7 @@ public class RobinKarp implements IAlgoMatchingStrings {
     // d is the number of characters in the input alphabet
     public final static int d = 256;
 
-     static int Search(String txt, String pat, int q)
+    public static int Search(String txt, String pat, int q)
     {
         if(txt.length() < pat.length() || pat == " ") {
         System.out.println("Pattern is not valid");

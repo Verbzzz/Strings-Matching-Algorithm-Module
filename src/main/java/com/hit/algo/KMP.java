@@ -1,9 +1,4 @@
-package com.hit.algorithm;
-
-import com.hit.algorithm.IAlgoMatchingStrings;
-import netscape.security.UserTarget;
-
-import java.util.Locale;
+package main.java.com.hit.algo;
 
 public class KMP implements IAlgoMatchingStrings {
     private static String text;

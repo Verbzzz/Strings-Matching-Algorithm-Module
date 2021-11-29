@@ -1,7 +1,4 @@
-package com.hit.algorithm;
-
-import java.util.Arrays;
-import java.util.Locale;
+package main.java.com.hit.algo;
 
 public class BoyerMoore implements IAlgoMatchingStrings {
     private static char[] text;

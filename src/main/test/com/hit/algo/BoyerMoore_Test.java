@@ -1,5 +1,6 @@
-package com.hit.algorithm;
+package main.test.com.hit.algo;
 
+import main.java.com.hit.algo.BoyerMoore;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,4 +1,4 @@
-package com.hit.algorithm;
+package main.java.com.hit.algo;
 
 public interface IAlgoMatchingStrings {
 
