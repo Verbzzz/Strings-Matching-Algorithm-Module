@@ -47,7 +47,7 @@ public class BoyerMoore implements IAlgoMatchingStrings {
     //A utility function to get maximum of two integers
     public static int max (int a, int b) { return (a > b)? a: b; }
 
-    //The preprocessing function for Boyer Moore's
+    //The preprocessing function for Boyer Moore'sz
     //bad character heuristic
     public static void badCharHeuristic( char []str, int size,int badchar[])
     {
@@ -64,6 +64,7 @@ public class BoyerMoore implements IAlgoMatchingStrings {
 
     /* A pattern searching function that uses Bad
     Character Heuristic of Boyer Moore Algorithm */
+
     public static int Search( char txt[],  char pat[]) {
         if (txt.length < pat.length || pat[0] == ' ')  {
             System.out.println("Pattern is not valid");
